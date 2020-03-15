@@ -21,7 +21,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
-import dao.ReservationDAO;
+ import dao.CampaignDAO;
+ import dao.CampaignDAOImpl;
+ import pojo.Reservation;
 
 
 /**
@@ -49,7 +51,7 @@ public class ProvinceServlet extends HttpServlet {
 
         //进行下一轮
 		response.setContentType("application/json;charset=utf-8");
-        ReservationDAO.addTimes(ReservationDAO.getTimes());
+        CampaignDAO.addTimes(CampaignDAO.getTimes());//轮次增加
 
 		request.setAttribute("status",ReservationDAO.getTimes());
 		

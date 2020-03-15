@@ -20,8 +20,8 @@ import org.omg.CORBA.OBJ_ADAPTER;
 
 
 
- import dao.ReservationDAO;
-// import dao.ProvinceDAOImpl;
+ import dao.MaskDAO;
+ import dao.MaskDAOImpl;
  import pojo.Reservation;
 // import util.DateUtil;
 
@@ -52,27 +52,27 @@ public class ProvinceServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String tel = request.getParameter("tel");
 		String number = request.getParameter("number");
-        Integer getnumber_n=getTimes();
+        Integer getnumber_n=MaskDAO.getTimes();
         Integer id_n= Integer.parseInt(id);
         boolean fl=true;
         String result="fail";
         //前三天的状况
         if(id_n>0){
-            if(ReservationDAO.query(id,getnumber_n-1))
+            if(MaskDAO.query(id,getnumber_n-1))
             {
-                String s1=ReservationDAO.list(id_n-1).getStatus();
+                String s1=MaskDAO.list(id_n-1).getStatus();
                 if(!s1.equals("2")) {
                     fl=false;
                 }
             }
-            if(ReservationDAO.query(id,getnumber_n-2))
+            if(MaskDAO.query(id,getnumber_n-2))
             {
                 String s1=ReservationDAO.list(id_n-2).getStatus();
                 if(!s1.equals("2")) {
                     fl=false;
                 }
             }
-            if(ReservationDAO.query(id,getnumber_n-3))
+            if(MaskDAO.query(id,getnumber_n-3))
             {
                 String s1=ReservationDAO.list(id_n-3).getStatus();
                 if(!s1.equals("2")) {
@@ -82,14 +82,14 @@ public class ProvinceServlet extends HttpServlet {
             
         }
         //预约成功
-        if(!ReservationDAO.query(id,getnumber_n)&&fl){
+        if(!MaskDAO.query(id,getnumber_n)&&fl){
             if(Times_n >=times_n){
                     getnumber_n++;
                     times_n++;
                     String in = String.valueOf(getnumber_n);
                     String intT = String.valueOf(times_n);
                     Reservation Order_=new Reservation(in,id,tel,number);
-                    ReservationDAO.add(Order_);
+                    MaskDAO.add(Order_);
                     result="success";
                 }
         }
